@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {  NDataTable, NSwitch, useMessage, NButton, NTag, useDialog } from 'naive-ui'
 import { defineProps, h , onMounted, reactive, ref} from 'vue'
-import { Task } from '../assets/types';
+import type { Task } from '../assets/types';
 
 
 const msg = useMessage();
@@ -42,7 +42,7 @@ const columns = [
   {
     title: 'number',
     key: 'number',
-    render: (row: Task, idx: number) => idx + 1
+    render: (_: Task, idx: number) => idx + 1
   },
   {
     title: 'Title',
@@ -77,7 +77,7 @@ const columns = [
   {
     title: 'Delete',
     key: 'delete',
-    render(row) {
+    render(row : Task) {
       return h(NButton, {
         type: 'error',
         disabled: !row.isCompleted,
@@ -89,7 +89,7 @@ const columns = [
               negativeText: 'Cancel',
               draggable: true,
               onPositiveClick: () => {
-                   fetch(`${process.env.VUE_APP_API_URL}/api/todo/${row.id}`, {
+                   fetch(`${import.meta.env.VITE_API_URL}/api/todo/${row.id}`, {
                      method: "DELETE",
                      headers: {
                        "Content-Type": "application/json"
@@ -113,8 +113,8 @@ const columns = [
   }
 ]
 
-const updateTaskStatus = async (id) => {
-    fetch(`${process.env.VUE_APP_API_URL}/api/todo/${id}/complete`, {
+const updateTaskStatus = async (id: string) => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/todo/${id}/complete`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -135,7 +135,7 @@ const refresh = async () => {
   try {
     isLoadingData.value = true; // start loading
 
-    const response = await fetch(`${process.env.VUE_APP_API_URL}/api/todo`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/todo`, {
       method: "GET",
     });
 

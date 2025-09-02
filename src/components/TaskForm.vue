@@ -8,6 +8,7 @@ const emit = defineEmits(['close'])
 const message = useMessage();
 
 const prioritySelectOptions = [
+  {value : -1, label: "Priority", disabled: true},
   {value : 0, label: "low", style: {color: 'green'} },
   {value : 1, label: "normal", style: {color: 'blue'}},
   {value : 2, label: "high", style: {color: '#A0A020'} },
@@ -21,12 +22,12 @@ const Task = reactive({
 
 // Function to create a task
 const createTask = async () => {
-  if (!Task.title || !Task.priority ) {
-    message.error('Please fill in both the title and priority!')
+  if (!Task.title  ) {
+    message.error('Please fill in both the title!')
     return
   }
 
-  fetch(`${process.env.VUE_APP_API_URL}/api/todo`, {
+  fetch(`${import.meta.env.VITE_API_URL}/api/todo`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"

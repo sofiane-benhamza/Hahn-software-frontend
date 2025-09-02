@@ -31,7 +31,7 @@ import { ref } from 'vue';
 import { NButton, NModal, NMessageProvider, NDialogProvider } from 'naive-ui';
 import TasksList from './components/TasksList.vue';
 import TaskForm from './components/TaskForm.vue';
-import { Task } from './assets/types';
+import type { Task } from './assets/types.ts';
 
 const openAddTaskWindow = ref<boolean>(false);
 const refresher = ref<number>(0);
